@@ -1,15 +1,24 @@
 export function clean(obj) {
-  if (typeof obj !== "object") {
-    return obj;
-  } else {
-    const newObj = {};
-    for (const key in obj) {
-      if (
-        !["start", "end", "loc", "computed", "shorthand", "extra"].includes(key)
-      ) {
-        newObj[key] = clean(obj[key]);
-      }
-    }
-    return newObj;
-  }
+  return typeof obj !== "object"
+    ? obj
+    : Array.isArray(obj)
+      ? obj.map(item => clean(item))
+      : Object.keys(obj).reduce(
+          (acc, key) =>
+            [
+              "start",
+              "end",
+              "loc",
+              "computed",
+              "shorthand",
+              "extra",
+              "__clone"
+            ].includes(key)
+              ? acc
+              : {
+                  ...acc,
+                  [key]: clean(obj[key])
+                },
+          {}
+        );
 }

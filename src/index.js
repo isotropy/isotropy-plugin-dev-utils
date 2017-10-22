@@ -1,7 +1,4 @@
-import astCleaner from "./ast-cleaner";
-import debugUtil from "./debug-util";
+import * as astCleaner from "./ast-cleaner";
+import * as debugUtil from "./debug-util";
 
-export default {
-  astCleaner,
-  debugUtil
-};
+export { astCleaner, debugUtil };
